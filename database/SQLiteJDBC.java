@@ -41,7 +41,7 @@ public class SQLiteJDBC {
 	}
 	static List<Raspuns> raspunsuriList = new ArrayList<>();
 	public static List<Raspuns> getRaspuns(String tabel,String coloanaId,String coloanaNume,int numarIntrebare) throws SQLException{
-		String select= "select * from '"+tabel+"'";
+		String select= "select * from "+tabel;
 		ResultSet result;
 		result = c.createStatement().executeQuery(select);
 		while(result.next()){
