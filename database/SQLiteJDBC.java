@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.Facultate;
 import domain.Raspuns;
@@ -55,8 +56,7 @@ public class SQLiteJDBC {
 	}
 	
 	public static List<Raspuns> raspunsuriIntrebare(int nrIntrebare){
-		List<Raspuns> raspunsuri=new ArrayList<>();
-		raspunsuri=List<Raspuns>.stream().filter(raspuns ->
-		raspuns.getIDIntrebare.equals(nrIntrebare));
+		List<Raspuns> raspunsuri=raspunsuri.stream().filter(raspuns ->raspuns.getId_intrebare()==nrIntrebare).collect(Collectors.toList());
+		return raspunsuri;
 	}
 }
