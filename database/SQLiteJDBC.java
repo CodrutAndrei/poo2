@@ -53,4 +53,10 @@ public class SQLiteJDBC {
 		}
 		return raspunsuriList;
 	}
+	
+	public static List<Raspuns> raspunsuriIntrebare(int nrIntrebare){
+		List<Raspuns> raspunsuri=new ArrayList<>();
+		raspunsuri=List<Raspuns>.stream().filter(raspuns ->
+		raspuns.getIDIntrebare.equals(nrIntrebare));
+	}
 }
