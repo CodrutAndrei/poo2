@@ -4,7 +4,11 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import database.SQLiteJDBC;
+import model.LoginUtils;
+
 import org.eclipse.swt.custom.CLabel;
+
+import javax.swing.JOptionPane;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
@@ -88,6 +92,20 @@ public class MainWindow {
 		btnLogIn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				if(LoginUtils.verifLogIn(username.getText(), parola.getText(), comboTipUtilizator.getText())==true){
+					Display display = Display.getDefault();
+					Chestionar shell = new Chestionar(display);
+					shell.open();
+					shell.layout();
+					while (!shell.isDisposed()) {
+						if (!display.readAndDispatch()) {
+							display.sleep();
+						}
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Datele introduse nu sunt corecte", "ERORR", JOptionPane.PLAIN_MESSAGE);
+				}
 			}
 		});
 		btnLogIn.setForeground(SWTResourceManager.getColor(SWT.COLOR_BLUE));

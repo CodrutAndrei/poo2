@@ -107,17 +107,31 @@ public class SQLiteJDBC {
 		return utilizatoriList;
 	}
 	
+	public static Utilizator getUtilizatorLogIn(String username){
+		String select = "SELECT * FROM UTILIZATOR WHERE username ="+"'username'";
+		ResultSet result;
+		Utilizator utilizator=new Utilizator();
+		try {
+			result=c.createStatement().executeQuery(select);
+			utilizator.setUsername(result.getString("username"));
+			utilizator.setParola(result.getString("parola"));
+			utilizator.setTipUtilizator(result.getString("tip_utilizator"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return utilizator;
+	}
 	
 
 	public static void modificareParola(String username, String parola) throws SQLException {
-		String update = "update UTILIZATOR set parola=" + parola + " where username=" + username;
-		c.createStatement().executeQuery(update);
+		String update = "UPDATE UTILIZATOR SET parola=" + parola + " where username=" + username;
+		//c.createStatement().executeQuery(update);
 		// modificare in utilizatoriList;
 	}
 
 	public static String getAlegeri(String tabel, String numeId, int comboItem, String numeColoana)
 			throws SQLException {
-		String select = "select * form " + tabel + " where " + numeId + "=" + Integer.toString(comboItem);
+		String select = "SELECT * FROM " + tabel + " WHERE " + numeId + "=" + Integer.toString(comboItem);
 		ResultSet result;
 		result = c.createStatement().executeQuery(select);
 		return result.getString(numeColoana);
