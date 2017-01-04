@@ -65,7 +65,7 @@ public class MainWindow {
 		shell.setSize(355, 328);
 		shell.setToolTipText("");
 		
-		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_LINK_FOREGROUND));
+		shell.setBackground(SWTResourceManager.getColor(SWT.COLOR_INFO_FOREGROUND));
 		shell.setText("LogIN");
 		
 		CLabel lblNewLabel = new CLabel(shell, SWT.NONE);

@@ -29,7 +29,7 @@ public class SQLiteJDBC {
 		return utilizatoriList;
 	}
 
-	public void connectToDB() {
+	public static void connectToDB() {
 
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -37,9 +37,10 @@ public class SQLiteJDBC {
 			System.out.println("Opened database successfully");
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			System.out.println(" database closed. something bad is going on");
 			System.exit(0);
 		}
-		
+
 	}
 
 	public static List<Facultate> getFacultati() throws SQLException {
@@ -106,20 +107,17 @@ public class SQLiteJDBC {
 		}
 		return utilizatoriList;
 	}
-	
-	public static Utilizator getUtilizatorLogIn(String username) throws SQLException{
-		String select = "SELECT * FROM UTILIZATOR WHERE username ="+"'username'"+";";
-		ResultSet result;
-		Utilizator utilizator=new Utilizator();
-		result=c.createStatement().executeQuery(select);
+
+	public static Utilizator getUtilizatorLogIn(String username) throws SQLException {
+		String select = "SELECT * FROM UTILIZATOR WHERE username =" + "'" + username + "'" + ";";
+		Utilizator utilizator = new Utilizator();
+		ResultSet result = c.createStatement().executeQuery(select);
+		System.out.println(result.getFetchSize());
 		utilizator.setUsername(result.getString("username"));
 		utilizator.setParola(result.getString("parola"));
 		utilizator.setTipUtilizator(result.getString("tip_utilizator"));
-		
-		
 		return utilizator;
 	}
-	
 
 	public static void modificareParola(String username, String parola) throws SQLException {
 		String update = "UPDATE UTILIZATOR SET parola=" + parola + " where username=" + username;
@@ -139,15 +137,16 @@ public class SQLiteJDBC {
 		String select = "SELECT nume_facultate FROM FACULTATE WHERE id_facultate = (SELECT id_facultate FROM SPECIALIZARE WHERE id_specializare="
 				+ Integer.toString(id_specializare) + ")";
 		ResultSet result;
-		result=c.createStatement().executeQuery(select);
+		result = c.createStatement().executeQuery(select);
 		return result.getString("nume_facultate");
 	}
-	
-	public static String getSpecializare(int id_specializare) throws SQLException{
-		String select ="SELECT nume_specializare FROM SPECIALIZARE WHERE id_specializare="+Integer.toString(id_specializare);
+
+	public static String getSpecializare(int id_specializare) throws SQLException {
+		String select = "SELECT nume_specializare FROM SPECIALIZARE WHERE id_specializare="
+				+ Integer.toString(id_specializare);
 		ResultSet result;
-		result=c.createStatement().executeQuery(select);
+		result = c.createStatement().executeQuery(select);
 		return result.getString("nume_specializare");
 	}
-	
+
 }
