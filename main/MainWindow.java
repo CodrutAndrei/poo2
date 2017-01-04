@@ -8,6 +8,9 @@ import model.LoginUtils;
 
 import org.eclipse.swt.custom.CLabel;
 
+import java.awt.HeadlessException;
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
 
 import org.eclipse.swt.SWT;
@@ -92,19 +95,27 @@ public class MainWindow {
 		btnLogIn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(LoginUtils.verifLogIn(username.getText(), parola.getText(), comboTipUtilizator.getText())==true){
-					Display display = Display.getDefault();
-					Chestionar shell = new Chestionar(display);
-					shell.open();
-					shell.layout();
-					while (!shell.isDisposed()) {
-						if (!display.readAndDispatch()) {
-							display.sleep();
+				try {
+					if(LoginUtils.verifLogIn(username.getText(), parola.getText(), comboTipUtilizator.getText())==true){
+						Display display = Display.getDefault();
+						Chestionar shell = new Chestionar(display);
+						shell.open();
+						shell.layout();
+						while (!shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
 						}
 					}
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Datele introduse nu sunt corecte", "ERORR", JOptionPane.PLAIN_MESSAGE);
+					else {
+						JOptionPane.showMessageDialog(null, "Datele introduse nu sunt corecte", "ERORR", JOptionPane.PLAIN_MESSAGE);
+					}
+				} catch (HeadlessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
