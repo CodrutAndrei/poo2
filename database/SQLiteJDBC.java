@@ -112,11 +112,15 @@ public class SQLiteJDBC {
 		String select = "SELECT * FROM UTILIZATOR WHERE username =" + "'" + username + "'" + ";";
 		Utilizator utilizator = new Utilizator();
 		ResultSet result = c.createStatement().executeQuery(select);
-		System.out.println(result.getFetchSize());
-		utilizator.setUsername(result.getString("username"));
-		utilizator.setParola(result.getString("parola"));
-		utilizator.setTipUtilizator(result.getString("tip_utilizator"));
-		return utilizator;
+		//check-ul asta ai putea sa-l faci la toate metodele, pentru ca altfel o sa-ti de eroarea aia
+		if (result.getFetchSize() == 0) {
+			return null;
+		} else {
+			utilizator.setUsername(result.getString("username"));
+			utilizator.setParola(result.getString("parola"));
+			utilizator.setTipUtilizator(result.getString("tip_utilizator"));
+			return utilizator;
+		}
 	}
 
 	public static void modificareParola(String username, String parola) throws SQLException {
